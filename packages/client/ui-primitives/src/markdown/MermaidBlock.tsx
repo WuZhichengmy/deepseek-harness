@@ -211,6 +211,28 @@ const DARK_THEME_CSS = `
  * @param code - The mermaid flowchart or diagram definition.
  * @returns The rendered SVG string.
  */
+/**
+ * Inject Mermaid init frontmatter to strictly enforce modern theme and curve defaults.
+ * @param code - Raw diagram code.
+ * @param isDark - Whether the current document theme is dark.
+ * @returns Executable diagram string with injected configuration directive.
+ */
+function prepareMermaidCode(code: string, isDark: boolean): string {
+  const trimmed = code.trim()
+  if (trimmed.startsWith('%%{init:')) {
+    return trimmed
+  }
+  const theme = isDark ? 'dark' : 'base'
+  const primaryColor = isDark ? '#1e293b' : '#ffffff'
+  const primaryTextColor = isDark ? '#f8fafc' : '#0f172a'
+  const primaryBorderColor = isDark ? '#475569' : '#cbd5e1'
+  const lineColor = isDark ? '#94a3b8' : '#64748b'
+  const edgeLabelBackground = isDark ? '#0f172a' : '#f8fafc'
+
+  const directive = `%%{init: {'theme': '${theme}', 'themeVariables': {'primaryColor': '${primaryColor}', 'primaryTextColor': '${primaryTextColor}', 'primaryBorderColor': '${primaryBorderColor}', 'lineColor': '${lineColor}', 'edgeLabelBackground': '${edgeLabelBackground}'}, 'flowchart': {'curve': 'basis', 'padding': 16, 'nodeSpacing': 45, 'rankSpacing': 45}}}%%\n`
+  return `${directive}${trimmed}`
+}
+
 async function renderMermaidSvg(id: string, code: string): Promise<string> {
   const { default: mermaid } = await import('mermaid')
   const isDark = typeof document !== 'undefined'
@@ -239,7 +261,8 @@ async function renderMermaidSvg(id: string, code: string): Promise<string> {
   }
 
   const cleanId = id.replace(/[^a-zA-Z0-9_-]/g, '_')
-  const { svg } = await mermaid.render(cleanId, code.trim())
+  const executableCode = prepareMermaidCode(code, isDark)
+  const { svg } = await mermaid.render(cleanId, executableCode)
   return svg
 }
 

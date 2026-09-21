@@ -140,7 +140,7 @@
 }
 
 .diagramBody {
-  padding: 28px 20px;
+  padding: 32px 24px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -169,15 +169,185 @@
   max-width: 100%;
   height: auto;
   display: block;
-  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.04));
 }
 
-.diagramSvg :global(.node) {
-  transition: transform 0.15s ease, filter 0.15s ease;
+/* ─────────────────────────────────────────────────────────────
+   Premium Node Card Styling (Linear/Raycast aesthetic)
+   Overrides Mermaid's default lavender purple (#ECECFF) & violet
+   ───────────────────────────────────────────────────────────── */
+.diagramSvg :global(.node rect),
+.diagramSvg :global(.node circle),
+.diagramSvg :global(.node ellipse),
+.diagramSvg :global(.node polygon) {
+  fill: #ffffff !important;
+  stroke: #cbd5e1 !important;
+  stroke-width: 1.5px !important;
+  rx: 10px !important;
+  ry: 10px !important;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.04)) drop-shadow(0 1px 2px rgba(0, 0, 0, 0.02));
+  transition: all 0.2s ease;
 }
 
-.diagramSvg :global(.node:hover) {
-  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.08));
+.diagramSvg :global(.node:hover rect),
+.diagramSvg :global(.node:hover circle),
+.diagramSvg :global(.node:hover polygon) {
+  stroke: #94a3b8 !important;
+  filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.08));
+}
+
+.diagramSvg :global(.node .label text),
+.diagramSvg :global(.node .label span),
+.diagramSvg :global(.node .label p),
+.diagramSvg :global(.node .label div) {
+  fill: #0f172a !important;
+  color: #0f172a !important;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif !important;
+  font-size: 13px !important;
+  font-weight: 500 !important;
+  line-height: 1.5 !important;
+}
+
+.diagramSvg :global(.node .label code) {
+  font-family: var(--ds-font-family-code, ui-monospace, monospace) !important;
+  font-size: 11px !important;
+  padding: 1px 6px !important;
+  border-radius: 4px !important;
+  background: rgba(99, 102, 241, 0.08) !important;
+  color: #4f46e5 !important;
+  font-weight: 600 !important;
+}
+
+/* Connectors and lines */
+.diagramSvg :global(.flowchart-link),
+.diagramSvg :global(.edgePath .path),
+.diagramSvg :global(path.flowchart-link) {
+  stroke: #64748b !important;
+  stroke-width: 1.5px !important;
+}
+
+.diagramSvg :global(.marker),
+.diagramSvg :global(.arrowheadPath) {
+  fill: #64748b !important;
+  stroke: #64748b !important;
+}
+
+/* Edge labels (tool names and conditions) */
+.diagramSvg :global(.edgeLabel) {
+  background: transparent !important;
+}
+
+.diagramSvg :global(.edgeLabel rect),
+.diagramSvg :global(.label-container) {
+  fill: #f8fafc !important;
+  stroke: #e2e8f0 !important;
+  stroke-width: 1px !important;
+  rx: 6px !important;
+  ry: 6px !important;
+  opacity: 0.96 !important;
+}
+
+.diagramSvg :global(.edgeLabel text),
+.diagramSvg :global(.edgeLabel span),
+.diagramSvg :global(.edgeLabel p) {
+  fill: #475569 !important;
+  color: #475569 !important;
+  font-family: var(--ds-font-family-code, ui-monospace, monospace) !important;
+  font-size: 11px !important;
+  font-weight: 600 !important;
+  padding: 2px 6px !important;
+}
+
+/* Subgraphs / Clusters */
+.diagramSvg :global(.cluster rect) {
+  fill: rgba(248, 250, 252, 0.6) !important;
+  stroke: #cbd5e1 !important;
+  stroke-width: 1.5px !important;
+  stroke-dasharray: 4 4 !important;
+  rx: 12px !important;
+  ry: 12px !important;
+}
+
+/* ─────────────────────────────────────────────────────────────
+   Dark Mode Overrides
+   ───────────────────────────────────────────────────────────── */
+:global([data-theme="dark"]) .diagramSvg :global(.node rect),
+:global([data-theme="dark"]) .diagramSvg :global(.node circle),
+:global([data-theme="dark"]) .diagramSvg :global(.node ellipse),
+:global([data-theme="dark"]) .diagramSvg :global(.node polygon),
+:global(.dark) .diagramSvg :global(.node rect),
+:global(.dark) .diagramSvg :global(.node circle),
+:global(.dark) .diagramSvg :global(.node ellipse),
+:global(.dark) .diagramSvg :global(.node polygon) {
+  fill: #1e293b !important;
+  stroke: #475569 !important;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+}
+
+:global([data-theme="dark"]) .diagramSvg :global(.node:hover rect),
+:global([data-theme="dark"]) .diagramSvg :global(.node:hover circle),
+:global([data-theme="dark"]) .diagramSvg :global(.node:hover polygon),
+:global(.dark) .diagramSvg :global(.node:hover rect),
+:global(.dark) .diagramSvg :global(.node:hover circle),
+:global(.dark) .diagramSvg :global(.node:hover polygon) {
+  stroke: #64748b !important;
+  filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.5));
+}
+
+:global([data-theme="dark"]) .diagramSvg :global(.node .label text),
+:global([data-theme="dark"]) .diagramSvg :global(.node .label span),
+:global([data-theme="dark"]) .diagramSvg :global(.node .label p),
+:global([data-theme="dark"]) .diagramSvg :global(.node .label div),
+:global(.dark) .diagramSvg :global(.node .label text),
+:global(.dark) .diagramSvg :global(.node .label span),
+:global(.dark) .diagramSvg :global(.node .label p),
+:global(.dark) .diagramSvg :global(.node .label div) {
+  fill: #f8fafc !important;
+  color: #f8fafc !important;
+}
+
+:global([data-theme="dark"]) .diagramSvg :global(.node .label code),
+:global(.dark) .diagramSvg :global(.node .label code) {
+  background: rgba(129, 140, 248, 0.18) !important;
+  color: #a5b4fc !important;
+}
+
+:global([data-theme="dark"]) .diagramSvg :global(.flowchart-link),
+:global([data-theme="dark"]) .diagramSvg :global(.edgePath .path),
+:global([data-theme="dark"]) .diagramSvg :global(path.flowchart-link),
+:global(.dark) .diagramSvg :global(.flowchart-link),
+:global(.dark) .diagramSvg :global(.edgePath .path),
+:global(.dark) .diagramSvg :global(path.flowchart-link) {
+  stroke: #94a3b8 !important;
+}
+
+:global([data-theme="dark"]) .diagramSvg :global(.marker),
+:global([data-theme="dark"]) .diagramSvg :global(.arrowheadPath),
+:global(.dark) .diagramSvg :global(.marker),
+:global(.dark) .diagramSvg :global(.arrowheadPath) {
+  fill: #94a3b8 !important;
+  stroke: #94a3b8 !important;
+}
+
+:global([data-theme="dark"]) .diagramSvg :global(.edgeLabel rect),
+:global(.dark) .diagramSvg :global(.edgeLabel rect) {
+  fill: #0f172a !important;
+  stroke: #334155 !important;
+}
+
+:global([data-theme="dark"]) .diagramSvg :global(.edgeLabel text),
+:global([data-theme="dark"]) .diagramSvg :global(.edgeLabel span),
+:global([data-theme="dark"]) .diagramSvg :global(.edgeLabel p),
+:global(.dark) .diagramSvg :global(.edgeLabel text),
+:global(.dark) .diagramSvg :global(.edgeLabel span),
+:global(.dark) .diagramSvg :global(.edgeLabel p) {
+  fill: #93c5fd !important;
+  color: #93c5fd !important;
+}
+
+:global([data-theme="dark"]) .diagramSvg :global(.cluster rect),
+:global(.dark) .diagramSvg :global(.cluster rect) {
+  fill: rgba(15, 23, 42, 0.6) !important;
+  stroke: #334155 !important;
 }
 
 .loading {
