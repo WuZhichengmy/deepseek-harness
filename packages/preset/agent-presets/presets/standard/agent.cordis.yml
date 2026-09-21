@@ -258,5 +258,8 @@
     fetch: true
     searchTimeoutMs: 60000
 
+- id: tool-dify
+  name: '@deepseek-ai/dsh-tool-dify'
+
 - id: present
   name: '@deepseek-ai/dsh-tool-present'

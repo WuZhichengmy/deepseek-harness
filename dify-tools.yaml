@@ -1,0 +1,117 @@
+# dify-tools.yaml
+# 声明式 Dify 工具清单、表单映射与系统提示词指引
+# 以后新增或修改 Dify 工具及协同规则只需在此文件中添加/编辑条目即可，无需改动任何 TypeScript 源码与 agent.cordis.yml。
+
+systemPrompt: |
+  ## Dify Enterprise Tools Guidance
+  You have access to specialized Dify enterprise tools for enterprise knowledge retrieval and workplace tasks:
+  - `dify_knowledge_qa`: Corporate HR policies, employee salary regulations, attendance rules, annual bonuses, probation criteria, and internal institutional rules (企业政策、人事规定、福利薪资问答).
+  - `dify_jomoo_rag`: Jomoo enterprise product knowledge, technical specifications, product manuals, sanitary ware parameters, installation standards, and company-wide documentation (九牧卫浴产品知识库与技术规范RAG检索).
+  - `dify_email_assistant`: Drafting, polishing, summarizing, replying to, checking grammar, or translating professional workplace emails (职场邮件起草/润色/回复/翻译助手).
+
+  ### Multi-Tool Task Coordination, Visual DAG Orchestration & User Confirmation Gate
+  - **Prerequisite Check**: Whenever a user task involves multiple Dify tools (例如先检索九牧产品规格或人事规章制度，再起草或润色客户/内部邮件；或跨多个知识库进行复合查询与综合分析), you MUST follow this three-phase workflow:
+
+  1. **Phase 1: Task Orchestration & Visual DAG (任务编排与出图)**:
+     - Do NOT invoke any Dify execution tools immediately.
+     - First, output a clear task orchestration plan directly in your response message. Include:
+       - A Mermaid flowchart (`flowchart TD` or `flowchart LR`) illustrating the workflow nodes, data dependencies, and parallel execution paths.
+       - A structured execution plan table listing Step ID, Target Tool, Key Input Parameters (`inputs`), and Predecessors.
+
+  2. **Phase 2: User Confirmation Gate (`ask_user_question` 确认闸门)**:
+     - Immediately after presenting the orchestration diagram, call the `ask_user_question` tool to request user confirmation before proceeding with any actual Dify tool executions.
+     - The question MUST follow this schema:
+       - `header`: "任务编排确认"
+       - `question`: "已为您规划以下任务执行编排方案，请确认是否按此流程执行？"
+       - `options`:
+         - `{ label: "确认执行 (Recommended)", description: "按编排流程开始调用 Dify 工具执行" }`
+         - `{ label: "修改计划", description: "调整执行顺序、工具或输入参数" }`
+         - `{ label: "取消任务", description: "放弃本次执行" }`
+     - If the user selects "确认执行 (Recommended)", proceed to Phase 3.
+     - If the user provides modifications or selects "修改计划", adjust the orchestration diagram and ask again.
+     - If the user cancels, abort the task gracefully without invoking Dify tools.
+
+  3. **Phase 3: Execution & Progress Tracking (`todo_write` 推进与追踪)**:
+     - Upon receiving confirmation, initialize a structured task checklist using `todo_write`.
+     - Execute the steps in topological order:
+       - Independent/parallel queries should be invoked concurrently within the same turn to maximize efficiency.
+       - Sequential/dependent queries must await predecessor outputs before calling downstream tools.
+     - Continuously update each step's status (`pending` -> `in_progress` -> `completed`) via `todo_write` as execution proceeds.
+
+tools:
+  - name: dify_knowledge_qa
+    description: >-
+      Query enterprise knowledge base, HR policies, employee salary regulations,
+      annual bonus criteria, probation, and internal guidelines via the Dify Chatflow.
+      Use this tool whenever the user inquires about company policies, benefit calculations,
+      or institutional rules. When the user asks about multiple distinct or independent topics,
+      you can and should invoke this tool multiple times in parallel within the same turn to query them concurrently.
+    apiKeyEnv: DIFY_KNOWLEDGE_API_KEY
+    defaultInputs:
+      source: '其他'
+      sys_type: 'PC端'
+
+  - name: dify_email_assistant
+    description: >-
+      Draft, polish, summarize, reply to, check grammar, or translate professional work emails via the Dify Email Assistant Chatflow.
+      Use this tool whenever the user needs assistance composing emails, editing drafts, writing replies,
+      summarizing messages, or translating emails between languages. Supports user_request actions: 总结, 回复, 代写, 润色, 检查语法, 翻译.
+      You can and should invoke this tool in parallel with other queries when handling multiple email tasks concurrently.
+    apiKeyEnv: DIFY_EMAIL_API_KEY
+    parameters:
+      user_request:
+        type: string
+        enum: ['总结', '回复', '代写', '润色', '检查语法', '翻译']
+        description: '邮件处理动作类型（可选，不传时根据 query 自动推断）'
+        infer:
+          pattern:
+            总结: '总结|摘要|概括|提炼'
+            回复: '回复|回信|答复'
+            润色: '润色|优化表达|改写|修饰'
+            检查语法: '语法|错别字|纠错|拼写'
+            翻译: '翻译'
+          default: '代写'
+      input_text:
+        type: string
+        targetInput: Input_Text
+        fallbackToQuery: true
+        description: '邮件正文内容（可选，不传时自动以 query 兜底）'
+      how_polish:
+        type: string
+        enum: ['提升表达的清晰度', '缩短', '增长', '简化', '以我的语气重写']
+        description: '润色风格偏好（仅当 user_request 为润色时生效）'
+        infer:
+          when: "user_request === '润色'"
+          pattern:
+            提升表达的清晰度: '清晰|通顺'
+            缩短: '缩短|精简|简短|简要'
+            增长: '增长|丰富|扩写|详细'
+            简化: '简化|通俗'
+            以我的语气重写: '语气|风格'
+          default: '提升表达的清晰度'
+
+  - name: dify_jomoo_rag
+    description: >-
+      Query Jomoo enterprise knowledge base via DeepSeek RAG (九牧知识库RAG).
+      Use this tool to search company-wide documents, technical specifications, product manuals,
+      operational standards, and enterprise knowledge. Supports chatType (JM_RAG for knowledge retrieval,
+      CHAT for general conversation, JM_ZNXZ for copywriting), search_model, and deepSearch.
+      When the user asks multiple distinct questions, you can invoke this tool multiple times concurrently.
+    apiKeyEnv: DIFY_JOMOO_RAG_API_KEY
+    defaultInputs:
+      chatType: 'JM_RAG'
+      search_model: '0'
+      deepSearch: '0'
+    parameters:
+      chatType:
+        type: string
+        enum: ['JM_RAG', 'CHAT', 'JM_ZNXZ']
+        description: '对话类型：JM_RAG (九牧知识库检索问答，默认), CHAT (通用对话), JM_ZNXZ (智能文案写作)'
+      search_model:
+        type: string
+        enum: ['0', '1']
+        description: '是否开启联网搜索：0 (不联网，默认), 1 (联网搜索)'
+      deepSearch:
+        type: string
+        enum: ['0', '1']
+        description: '深度搜索模式：0 (普通搜索，默认), 1 (深度搜索)'

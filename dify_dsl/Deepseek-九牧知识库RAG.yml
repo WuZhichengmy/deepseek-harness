@@ -1,0 +1,773 @@
+app:
+  description: 九牧知识库RAG--正式
+  icon: toolbox
+  icon_background: '#FFEAD5'
+  mode: advanced-chat
+  name: Deepseek-九牧知识库RAG
+  use_icon_as_answer_icon: false
+dependencies:
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: langgenius/openai_api_compatible:0.0.47@797b0e4de14fa5e09fba49b0d7110e10781457dd89cdab3cba3416629a92754c
+    version: null
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: langgenius/tongyi:0.0.34@611538dd92e8b164bd88aa4027cceeda28aeaf6ff19ea82a5925c20f9f358651
+    version: null
+kind: app
+version: 0.4.0
+workflow:
+  conversation_variables: []
+  environment_variables: []
+  features:
+    file_upload:
+      allowed_file_extensions: []
+      allowed_file_types:
+      - document
+      allowed_file_upload_methods:
+      - remote_url
+      - local_file
+      enabled: true
+      fileUploadConfig:
+        audio_file_size_limit: 300
+        batch_count_limit: 5
+        file_size_limit: 50
+        image_file_size_limit: 10
+        video_file_size_limit: 300
+        workflow_file_upload_limit: 10
+      image:
+        enabled: false
+        number_limits: 3
+        transfer_methods:
+        - local_file
+        - remote_url
+      number_limits: 1
+    opening_statement: ''
+    retriever_resource:
+      enabled: true
+    sensitive_word_avoidance:
+      enabled: false
+    speech_to_text:
+      enabled: false
+    suggested_questions: []
+    suggested_questions_after_answer:
+      enabled: false
+    text_to_speech:
+      enabled: false
+      language: ''
+      voice: ''
+  graph:
+    edges:
+    - data:
+        isInIteration: false
+        sourceType: knowledge-retrieval
+        targetType: llm
+      id: 1740535882567--1740535930379-target
+      source: '1740535882567'
+      sourceHandle: source
+      target: '1740535930379'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: llm
+        targetType: answer
+      id: 1740535930379--1740535957587-target
+      source: '1740535930379'
+      sourceHandle: source
+      target: '1740535957587'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: if-else
+        targetType: knowledge-retrieval
+      id: 1740463525629-931e3ac4-7001-46ba-a680-7cb71c6d5cc8-1740535882567-target
+      source: '1740463525629'
+      sourceHandle: 931e3ac4-7001-46ba-a680-7cb71c6d5cc8
+      target: '1740535882567'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: llm
+        targetType: answer
+      id: 1740637698066-source-answer-target
+      source: '1740637698066'
+      sourceHandle: source
+      target: answer
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: if-else
+        targetType: if-else
+      id: 1740463525629-false-1740801084884-target
+      selected: false
+      source: '1740463525629'
+      sourceHandle: 'false'
+      target: '1740801084884'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: start
+        targetType: if-else
+      id: 1738896965839-source-1740463525629-target
+      source: '1738896965839'
+      sourceHandle: source
+      target: '1740463525629'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: if-else
+        targetType: if-else
+      id: 1740801084884-d92c2f8c-78b7-4a4b-9b49-032272b346ac-1740813900026-target
+      source: '1740801084884'
+      sourceHandle: d92c2f8c-78b7-4a4b-9b49-032272b346ac
+      target: '1740813900026'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: if-else
+        targetType: document-extractor
+      id: 1740813900026-false-1740814060864-target
+      source: '1740813900026'
+      sourceHandle: 'false'
+      target: '1740814060864'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: document-extractor
+        targetType: llm
+      id: 1740814060864-source-1740814091001-target
+      source: '1740814060864'
+      sourceHandle: source
+      target: '1740814091001'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: llm
+        targetType: answer
+      id: 1740814091001-source-1740814100154-target
+      source: '1740814091001'
+      sourceHandle: source
+      target: '1740814100154'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: if-else
+        targetType: if-else
+      id: 1740801084884-false-1740814202686-target
+      source: '1740801084884'
+      sourceHandle: 'false'
+      target: '1740814202686'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: if-else
+        targetType: llm
+      id: 1740814202686-true-1740637698066-target
+      source: '1740814202686'
+      sourceHandle: 'true'
+      target: '1740637698066'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: if-else
+        targetType: document-extractor
+      id: 1740814202686-false-1740814060864-target
+      source: '1740814202686'
+      sourceHandle: 'false'
+      target: '1740814060864'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: llm
+        targetType: answer
+      id: 1740815299447-source-1740815319096-target
+      source: '1740815299447'
+      sourceHandle: source
+      target: '1740815319096'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: if-else
+        targetType: llm
+      id: 1740463525629-e73e10ed-dc61-4f23-9156-c0e0e0c99c64-1740815299447-target
+      source: '1740463525629'
+      sourceHandle: e73e10ed-dc61-4f23-9156-c0e0e0c99c64
+      target: '1740815299447'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: llm
+        targetType: answer
+      id: 1740969500581-source-1740801142856-target
+      source: '1740969500581'
+      sourceHandle: source
+      target: '1740801142856'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: if-else
+        targetType: llm
+      id: 1740813900026-true-1740969500581-target
+      source: '1740813900026'
+      sourceHandle: 'true'
+      target: '1740969500581'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    nodes:
+    - data:
+        desc: ''
+        selected: false
+        title: Start
+        type: start
+        variables:
+        - label: 搜索类型
+          max_length: 48
+          options:
+          - '1'
+          - '0'
+          required: false
+          type: select
+          variable: search_model
+        - label: 对话类型
+          max_length: 48
+          options:
+          - JM_RAG
+          - CHAT
+          - JM_ZNXZ
+          required: false
+          type: select
+          variable: chatType
+        - label: 深度搜索
+          max_length: 48
+          options:
+          - '1'
+          - '0'
+          required: false
+          type: select
+          variable: deepSearch
+      height: 140
+      id: '1738896965839'
+      position:
+        x: 30
+        y: 286.5
+      positionAbsolute:
+        x: 30
+        y: 286.5
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        answer: '{{#1740637698066.text#}}'
+        desc: ''
+        selected: false
+        title: Answer
+        type: answer
+        variables: []
+      height: 103
+      id: answer
+      position:
+        x: 1545
+        y: 437.5
+      positionAbsolute:
+        x: 1545
+        y: 437.5
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        cases:
+        - case_id: 931e3ac4-7001-46ba-a680-7cb71c6d5cc8
+          conditions:
+          - comparison_operator: contains
+            id: 56ea6b7f-7dcf-4f00-868f-1c5c8d8251af
+            value: JM_RAG
+            varType: string
+            variable_selector:
+            - '1738896965839'
+            - chatType
+          id: 931e3ac4-7001-46ba-a680-7cb71c6d5cc8
+          logical_operator: and
+        - case_id: e73e10ed-dc61-4f23-9156-c0e0e0c99c64
+          conditions:
+          - comparison_operator: contains
+            id: 0c767af1-45a5-423c-ad4a-7418100e01bc
+            value: JM_ZNXZ
+            varType: string
+            variable_selector:
+            - '1738896965839'
+            - chatType
+          id: e73e10ed-dc61-4f23-9156-c0e0e0c99c64
+          logical_operator: and
+        desc: ''
+        selected: false
+        title: 判断聊天类型
+        type: if-else
+      height: 172
+      id: '1740463525629'
+      position:
+        x: 333
+        y: 286.5
+      positionAbsolute:
+        x: 333
+        y: 286.5
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        dataset_ids:
+        - QL3MXyCB8pFwfv3lGSCNtS9ZKgiIYxlB9qmR4kakbVHeKXXcoP9zkq0Ny0T/YbbG
+        desc: ''
+        multiple_retrieval_config:
+          reranking_enable: true
+          reranking_mode: reranking_model
+          reranking_model:
+            model: BAAI/bge-reranker-v2-m3
+            provider: langgenius/openai_api_compatible/openai_api_compatible
+          top_k: 4
+        query_variable_selector:
+        - sys
+        - query
+        retrieval_mode: multiple
+        selected: false
+        title: 九牧知识库
+        type: knowledge-retrieval
+      height: 52
+      id: '1740535882567'
+      position:
+        x: 636
+        y: 286.5
+      positionAbsolute:
+        x: 636
+        y: 286.5
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        context:
+          enabled: true
+          variable_selector:
+          - '1740535882567'
+          - result
+        desc: ''
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: deepseek-v3
+          provider: langgenius/tongyi/tongyi
+        prompt_template:
+        - id: b1f5eff2-17b3-4580-90b8-75e117b3e41a
+          role: system
+          text: '{{#context#}}'
+        - id: 65608791-379e-41b3-81d8-0b92810bca35
+          role: user
+          text: '{{#sys.query#}}'
+        selected: false
+        title: LLM+知识库
+        type: llm
+        variables: []
+        vision:
+          enabled: false
+      height: 88
+      id: '1740535930379'
+      position:
+        x: 939
+        y: 286.5
+      positionAbsolute:
+        x: 939
+        y: 286.5
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        answer: '{{#1740535930379.text#}}'
+        desc: ''
+        selected: false
+        title: LLM+知识库回复
+        type: answer
+        variables: []
+      height: 103
+      id: '1740535957587'
+      position:
+        x: 1242
+        y: 286.5
+      positionAbsolute:
+        x: 1242
+        y: 286.5
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        desc: ''
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: deepseek-v3
+          provider: langgenius/tongyi/tongyi
+        prompt_template:
+        - id: 84e8aaa9-9319-46fe-a456-f37f3b30ace0
+          role: system
+          text: ''
+        - id: 3df83403-eea1-4a7f-b017-084d902db228
+          role: user
+          text: '{{#sys.query#}}'
+        selected: false
+        title: LLM通用回答
+        type: llm
+        variables: []
+        vision:
+          enabled: false
+      height: 88
+      id: '1740637698066'
+      position:
+        x: 1242
+        y: 439.5
+      positionAbsolute:
+        x: 1242
+        y: 439.5
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        cases:
+        - case_id: d92c2f8c-78b7-4a4b-9b49-032272b346ac
+          conditions:
+          - comparison_operator: contains
+            id: 4c7f7315-1497-470f-9847-805490b9b4ca
+            value: '1'
+            varType: string
+            variable_selector:
+            - '1738896965839'
+            - search_model
+          id: d92c2f8c-78b7-4a4b-9b49-032272b346ac
+          logical_operator: and
+        desc: ''
+        selected: false
+        title: 判断是否联网搜索
+        type: if-else
+      height: 124
+      id: '1740801084884'
+      position:
+        x: 636
+        y: 401.5
+      positionAbsolute:
+        x: 636
+        y: 401.5
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        answer: '{{#1740969500581.text#}}'
+        desc: ''
+        selected: false
+        title: 直接回复 3
+        type: answer
+        variables: []
+      height: 103
+      id: '1740801142856'
+      position:
+        x: 1545
+        y: 602.5
+      positionAbsolute:
+        x: 1545
+        y: 602.5
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        cases:
+        - case_id: 'true'
+          conditions:
+          - comparison_operator: empty
+            id: d28525b9-fd09-4856-b21c-99ca44f51267
+            value: ''
+            varType: array[file]
+            variable_selector:
+            - sys
+            - files
+          id: 'true'
+          logical_operator: and
+        desc: ''
+        selected: false
+        title: 条件分支 3
+        type: if-else
+      height: 124
+      id: '1740813900026'
+      position:
+        x: 939
+        y: 588.5
+      positionAbsolute:
+        x: 939
+        y: 588.5
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        desc: ''
+        is_array_file: true
+        selected: false
+        title: 文档提取器
+        type: document-extractor
+        variable_selector:
+        - sys
+        - files
+      height: 92
+      id: '1740814060864'
+      position:
+        x: 1242
+        y: 746.5
+      positionAbsolute:
+        x: 1242
+        y: 746.5
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        desc: ''
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: deepseek-v3
+          provider: langgenius/tongyi/tongyi
+        prompt_template:
+        - id: 4793689c-6c4c-4bcd-a84f-75b833fc99cd
+          role: system
+          text: ''
+        - id: b542cd52-0986-4958-8b42-7c557d527b82
+          role: user
+          text: '{{#sys.query#}}
+
+            {{#1740814060864.text#}}'
+        selected: false
+        title: LLM 4
+        type: llm
+        variables: []
+        vision:
+          enabled: false
+      height: 88
+      id: '1740814091001'
+      position:
+        x: 1545
+        y: 743.5
+      positionAbsolute:
+        x: 1545
+        y: 743.5
+      selected: true
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        answer: '{{#1740814091001.text#}}'
+        desc: ''
+        selected: false
+        title: 直接回复 4
+        type: answer
+        variables: []
+      height: 103
+      id: '1740814100154'
+      position:
+        x: 1848
+        y: 741.5
+      positionAbsolute:
+        x: 1848
+        y: 741.5
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        cases:
+        - case_id: 'true'
+          conditions:
+          - comparison_operator: empty
+            id: 993d618f-f356-49c9-a422-630ca19e0940
+            value: ''
+            varType: array[file]
+            variable_selector:
+            - sys
+            - files
+          id: 'true'
+          logical_operator: and
+        desc: ''
+        selected: false
+        title: 条件分支 4
+        type: if-else
+      height: 124
+      id: '1740814202686'
+      position:
+        x: 939
+        y: 423.5
+      positionAbsolute:
+        x: 939
+        y: 423.5
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        desc: ''
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: deepseek-v3
+          provider: langgenius/tongyi/tongyi
+        prompt_template:
+        - id: 6c2b0d71-9695-4b78-b98a-667173ec16f9
+          role: system
+          text: 你是一个文案写作专家，针对用户提问进行专业文案编写
+        - id: 0702ced9-a99e-48d2-a1e3-130550b1bd11
+          role: user
+          text: '{{#sys.query#}}'
+        selected: false
+        title: 智能写作
+        type: llm
+        variables: []
+        vision:
+          enabled: false
+      height: 88
+      id: '1740815299447'
+      position:
+        x: 636
+        y: 733.5
+      positionAbsolute:
+        x: 636
+        y: 733.5
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        answer: '{{#1740815299447.text#}}'
+        desc: ''
+        selected: false
+        title: 智能写作回复
+        type: answer
+        variables: []
+      height: 103
+      id: '1740815319096'
+      position:
+        x: 939
+        y: 753.5
+      positionAbsolute:
+        x: 939
+        y: 753.5
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        desc: ''
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: deepseek-v3
+          provider: langgenius/tongyi/tongyi
+        prompt_template:
+        - id: 64249ff4-ab5a-4054-bf6e-ed3519f2ae0c
+          role: system
+          text: '{{#sys.query#}}'
+        - id: 7e422ba3-f7f1-496d-8b38-3cdd35768571
+          role: user
+          text: '{{#sys.query#}}'
+        selected: false
+        title: LLM 5
+        type: llm
+        variables: []
+        vision:
+          enabled: false
+      height: 88
+      id: '1740969500581'
+      position:
+        x: 1242
+        y: 604.5
+      positionAbsolute:
+        x: 1242
+        y: 604.5
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    viewport:
+      x: -247.59956764969365
+      y: 208.5965254617646
+      zoom: 0.6552218293215448
+  rag_pipeline_variables: []

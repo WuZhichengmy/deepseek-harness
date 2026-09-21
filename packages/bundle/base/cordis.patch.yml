@@ -468,6 +468,9 @@
         fetch: true
         searchTimeoutMs: 60000
 
+    - id: tool-dify
+      name: '@deepseek-ai/dsh-tool-dify'
+
     - id: mcp-resources
       name: '@deepseek-ai/dsh-mcp-resources'
 

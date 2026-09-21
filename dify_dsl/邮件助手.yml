@@ -1,0 +1,1445 @@
+app:
+  description: ''
+  icon: 🤖
+  icon_background: '#FFEAD5'
+  mode: advanced-chat
+  name: 邮件助手
+  use_icon_as_answer_icon: false
+dependencies:
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: langgenius/tongyi:0.0.34@611538dd92e8b164bd88aa4027cceeda28aeaf6ff19ea82a5925c20f9f358651
+    version: null
+kind: app
+version: 0.4.0
+workflow:
+  conversation_variables: []
+  environment_variables: []
+  features:
+    file_upload:
+      allowed_file_extensions:
+      - .JPG
+      - .JPEG
+      - .PNG
+      - .GIF
+      - .WEBP
+      - .SVG
+      allowed_file_types:
+      - image
+      allowed_file_upload_methods:
+      - local_file
+      - remote_url
+      enabled: false
+      fileUploadConfig:
+        audio_file_size_limit: 300
+        batch_count_limit: 5
+        file_size_limit: 50
+        image_file_size_limit: 10
+        video_file_size_limit: 300
+        workflow_file_upload_limit: 10
+      image:
+        enabled: false
+        number_limits: 3
+        transfer_methods:
+        - local_file
+        - remote_url
+      number_limits: 3
+    opening_statement: ''
+    retriever_resource:
+      enabled: true
+    sensitive_word_avoidance:
+      enabled: false
+    speech_to_text:
+      enabled: false
+    suggested_questions: []
+    suggested_questions_after_answer:
+      enabled: false
+    text_to_speech:
+      enabled: false
+      language: ''
+      voice: ''
+  graph:
+    edges:
+    - data:
+        isInLoop: false
+        sourceType: start
+        targetType: question-classifier
+      id: 1753780366116-source-1753781373474-target
+      selected: false
+      source: '1753780366116'
+      sourceHandle: source
+      target: '1753781373474'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: question-classifier
+        targetType: question-classifier
+      id: 1753781373474-1753781473454-1753781567723-target
+      selected: false
+      source: '1753781373474'
+      sourceHandle: '1753781473454'
+      target: '1753781567723'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: question-classifier
+        targetType: llm
+      id: 1753781567723-1-llm-target
+      selected: false
+      source: '1753781567723'
+      sourceHandle: '1'
+      target: llm
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: llm
+        targetType: template-transform
+      id: llm-source-1753782115976-target
+      selected: false
+      source: llm
+      sourceHandle: source
+      target: '1753782115976'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: template-transform
+        targetType: answer
+      id: 1753782115976-source-answer-target
+      selected: false
+      source: '1753782115976'
+      sourceHandle: source
+      target: answer
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: question-classifier
+        targetType: llm
+      id: 1753781567723-2-17537830169990-target
+      selected: false
+      source: '1753781567723'
+      sourceHandle: '2'
+      target: '17537830169990'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: question-classifier
+        targetType: llm
+      id: 1753781567723-1753781623534-17537830209440-target
+      selected: false
+      source: '1753781567723'
+      sourceHandle: '1753781623534'
+      target: '17537830209440'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: question-classifier
+        targetType: llm
+      id: 1753781567723-1753781629130-17537830241880-target
+      selected: false
+      source: '1753781567723'
+      sourceHandle: '1753781629130'
+      target: '17537830241880'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: question-classifier
+        targetType: llm
+      id: 1753781567723-1753781633942-17537830274320-target
+      selected: false
+      source: '1753781567723'
+      sourceHandle: '1753781633942'
+      target: '17537830274320'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: question-classifier
+        targetType: llm
+      id: 1753781373474-1-17537831874480-target
+      selected: false
+      source: '1753781373474'
+      sourceHandle: '1'
+      target: '17537831874480'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: question-classifier
+        targetType: llm
+      id: 1753781373474-2-17537831985080-target
+      selected: false
+      source: '1753781373474'
+      sourceHandle: '2'
+      target: '17537831985080'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: question-classifier
+        targetType: llm
+      id: 1753781373474-1753781467546-17537832005710-target
+      selected: false
+      source: '1753781373474'
+      sourceHandle: '1753781467546'
+      target: '17537832005710'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: question-classifier
+        targetType: llm
+      id: 1753781373474-1753781478346-17537832024440-target
+      selected: false
+      source: '1753781373474'
+      sourceHandle: '1753781478346'
+      target: '17537832024440'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: question-classifier
+        targetType: llm
+      id: 1753781373474-1753781484557-17537832051480-target
+      selected: false
+      source: '1753781373474'
+      sourceHandle: '1753781484557'
+      target: '17537832051480'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: llm
+        targetType: template-transform
+      id: 17537831874480-source-17537834042700-target
+      selected: false
+      source: '17537831874480'
+      sourceHandle: source
+      target: '17537834042700'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: llm
+        targetType: template-transform
+      id: 17537831985080-source-17537834061510-target
+      selected: false
+      source: '17537831985080'
+      sourceHandle: source
+      target: '17537834061510'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: llm
+        targetType: template-transform
+      id: 17537832005710-source-17537834080880-target
+      selected: false
+      source: '17537832005710'
+      sourceHandle: source
+      target: '17537834080880'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: llm
+        targetType: template-transform
+      id: 17537832024440-source-17537834095460-target
+      selected: false
+      source: '17537832024440'
+      sourceHandle: source
+      target: '17537834095460'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: llm
+        targetType: template-transform
+      id: 17537832051480-source-17537834112790-target
+      selected: false
+      source: '17537832051480'
+      sourceHandle: source
+      target: '17537834112790'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: llm
+        targetType: template-transform
+      id: 17537830169990-source-17537833878050-target
+      selected: false
+      source: '17537830169990'
+      sourceHandle: source
+      target: '17537833878050'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: llm
+        targetType: template-transform
+      id: 17537830209440-source-17537833918710-target
+      selected: false
+      source: '17537830209440'
+      sourceHandle: source
+      target: '17537833918710'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: llm
+        targetType: template-transform
+      id: 17537830241880-source-17537833944120-target
+      selected: false
+      source: '17537830241880'
+      sourceHandle: source
+      target: '17537833944120'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: llm
+        targetType: template-transform
+      id: 17537830274320-source-17537833961710-target
+      selected: false
+      source: '17537830274320'
+      sourceHandle: source
+      target: '17537833961710'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: template-transform
+        targetType: answer
+      id: 17537833878050-source-17537834513210-target
+      selected: false
+      source: '17537833878050'
+      sourceHandle: source
+      target: '17537834513210'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: template-transform
+        targetType: answer
+      id: 17537833918710-source-17537834531660-target
+      selected: false
+      source: '17537833918710'
+      sourceHandle: source
+      target: '17537834531660'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: template-transform
+        targetType: answer
+      id: 17537833944120-source-17537834565230-target
+      selected: false
+      source: '17537833944120'
+      sourceHandle: source
+      target: '17537834565230'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: template-transform
+        targetType: answer
+      id: 17537833961710-source-17537834585350-target
+      selected: false
+      source: '17537833961710'
+      sourceHandle: source
+      target: '17537834585350'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: template-transform
+        targetType: answer
+      id: 17537834042700-source-17537834631320-target
+      selected: false
+      source: '17537834042700'
+      sourceHandle: source
+      target: '17537834631320'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: template-transform
+        targetType: answer
+      id: 17537834061510-source-17537834650050-target
+      selected: false
+      source: '17537834061510'
+      sourceHandle: source
+      target: '17537834650050'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: template-transform
+        targetType: answer
+      id: 17537834095460-source-17537834689360-target
+      selected: false
+      source: '17537834095460'
+      sourceHandle: source
+      target: '17537834689360'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: template-transform
+        targetType: answer
+      id: 17537834080880-source-17537834667230-target
+      selected: false
+      source: '17537834080880'
+      sourceHandle: source
+      target: '17537834667230'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: template-transform
+        targetType: answer
+      id: 17537834112790-source-17537834718030-target
+      selected: false
+      source: '17537834112790'
+      sourceHandle: source
+      target: '17537834718030'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    nodes:
+    - data:
+        desc: ''
+        selected: false
+        title: 开始
+        type: start
+        variables:
+        - label: 你想做什么？（总结、回复、代写、润色）
+          max_length: 48
+          options:
+          - 总结
+          - 回复
+          - 代写
+          - 润色
+          - 检查语法
+          - 翻译
+          required: true
+          type: select
+          variable: user_request
+        - label: 想要怎么润色？（可选）
+          max_length: 48
+          options:
+          - 提升表达的清晰度
+          - 缩短
+          - 增长
+          - 简化
+          - 以我的语气重写
+          required: false
+          type: select
+          variable: how_polish
+        - label: 邮件内容
+          max_length: null
+          options: []
+          required: true
+          type: paragraph
+          variable: Input_Text
+      height: 140
+      id: '1753780366116'
+      position:
+        x: 30
+        y: 361.5
+      positionAbsolute:
+        x: 30
+        y: 361.5
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        desc: ''
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: deepseek-v3
+          provider: langgenius/tongyi/tongyi
+        prompt_template:
+        - id: 8024484e-a1ab-4c86-91b0-6e24022b64d6
+          role: system
+          text: '<Task> 提升这封邮件表达的清晰度。
+
+            <Email>{{#1753780366116.Input_Text#}}
+
+
+            <Result>'
+        selected: false
+        title: LLM
+        type: llm
+        variables: []
+        vision:
+          enabled: false
+      height: 88
+      id: llm
+      position:
+        x: 942
+        y: 361.5
+      positionAbsolute:
+        x: 942
+        y: 361.5
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        answer: '{{#llm.text#}}'
+        desc: ''
+        selected: false
+        title: 直接回复
+        type: answer
+        variables: []
+      height: 103
+      id: answer
+      position:
+        x: 1550
+        y: 361.5
+      positionAbsolute:
+        x: 1550
+        y: 361.5
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        classes:
+        - id: '1'
+          name: 总结
+        - id: '2'
+          name: 回复
+        - id: '1753781467546'
+          name: 代写
+        - id: '1753781473454'
+          name: 润色
+        - id: '1753781478346'
+          name: 检查语法
+        - id: '1753781484557'
+          name: 翻译
+        desc: ''
+        instructions: ''
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: deepseek-v3
+          provider: langgenius/tongyi/tongyi
+        query_variable_selector:
+        - '1753780366116'
+        - user_request
+        selected: false
+        title: 问题分类器
+        topics: []
+        type: question-classifier
+        vision:
+          enabled: false
+      height: 322
+      id: '1753781373474'
+      position:
+        x: 334
+        y: 361.5
+      positionAbsolute:
+        x: 334
+        y: 361.5
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        classes:
+        - id: '1'
+          name: 提升表达清晰程度
+        - id: '2'
+          name: 缩短
+        - id: '1753781623534'
+          name: 增长
+        - id: '1753781629130'
+          name: 化简
+        - id: '1753781633942'
+          name: 以我的语气重写
+        desc: ''
+        instructions: ''
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: deepseek-v3
+          provider: langgenius/tongyi/tongyi
+        query_variable_selector:
+        - '1753780366116'
+        - how_polish
+        selected: false
+        title: 问题分类器
+        topics: []
+        type: question-classifier
+        vision:
+          enabled: false
+      height: 284
+      id: '1753781567723'
+      position:
+        x: 638
+        y: 361.5
+      positionAbsolute:
+        x: 638
+        y: 361.5
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        author: 陈晓彬
+        desc: ''
+        height: 88
+        selected: false
+        showAuthor: true
+        text: ''
+        theme: blue
+        title: ''
+        type: ''
+        width: 240
+      height: 88
+      id: '1753781665262'
+      position:
+        x: -102.85714285714286
+        y: 534.2857142857143
+      positionAbsolute:
+        x: -102.85714285714286
+        y: 534.2857142857143
+      sourcePosition: right
+      targetPosition: left
+      type: custom-note
+      width: 240
+    - data:
+        desc: ''
+        selected: false
+        template: '{{ arg1 }}'
+        title: 模板转换
+        type: template-transform
+        variables:
+        - value_selector:
+          - llm
+          - text
+          value_type: string
+          variable: arg1
+      height: 52
+      id: '1753782115976'
+      position:
+        x: 1246
+        y: 361.5
+      positionAbsolute:
+        x: 1246
+        y: 361.5
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        desc: ''
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: deepseek-v3
+          provider: langgenius/tongyi/tongyi
+        prompt_template:
+        - id: 8024484e-a1ab-4c86-91b0-6e24022b64d6
+          role: system
+          text: '<Task> 将这封邮件缩短
+
+            <Email>{{#1753780366116.Input_Text#}}
+
+
+            <Result>'
+        selected: false
+        title: LLM
+        type: llm
+        variables: []
+        vision:
+          enabled: false
+      height: 88
+      id: '17537830169990'
+      position:
+        x: 942
+        y: 505.5
+      positionAbsolute:
+        x: 942
+        y: 505.5
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        desc: ''
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: deepseek-v3
+          provider: langgenius/tongyi/tongyi
+        prompt_template:
+        - id: 8024484e-a1ab-4c86-91b0-6e24022b64d6
+          role: system
+          text: '<Task> 将这封邮件写的更长。
+
+            <Email>{{#1753780366116.Input_Text#}}
+
+
+            <Result>'
+        selected: false
+        title: LLM
+        type: llm
+        variables: []
+        vision:
+          enabled: false
+      height: 88
+      id: '17537830209440'
+      position:
+        x: 942
+        y: 649.5
+      positionAbsolute:
+        x: 942
+        y: 649.5
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        desc: ''
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: deepseek-v3
+          provider: langgenius/tongyi/tongyi
+        prompt_template:
+        - id: 8024484e-a1ab-4c86-91b0-6e24022b64d6
+          role: system
+          text: "<Task> 简化这封邮件。 \n<Email>{{#1753780366116.Input_Text#}}\n\n<Result>"
+        selected: false
+        title: LLM
+        type: llm
+        variables: []
+        vision:
+          enabled: false
+      height: 88
+      id: '17537830241880'
+      position:
+        x: 942
+        y: 793.5
+      positionAbsolute:
+        x: 942
+        y: 793.5
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        desc: ''
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: deepseek-v3
+          provider: langgenius/tongyi/tongyi
+        prompt_template:
+        - id: 8024484e-a1ab-4c86-91b0-6e24022b64d6
+          role: system
+          text: '<Task> 把这封邮件用我的语气重写。
+
+            <Email>{{#1753780366116.Input_Text#}}
+
+
+            <Result>'
+        selected: false
+        title: LLM
+        type: llm
+        variables: []
+        vision:
+          enabled: false
+      height: 88
+      id: '17537830274320'
+      position:
+        x: 942
+        y: 937.5
+      positionAbsolute:
+        x: 942
+        y: 937.5
+      selected: true
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        desc: ''
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: deepseek-v3
+          provider: langgenius/tongyi/tongyi
+        prompt_template:
+        - id: 8024484e-a1ab-4c86-91b0-6e24022b64d6
+          role: system
+          text: '<Task> 为我总结这封邮件。 
+
+            <Email>{{#1753780366116.Input_Text#}}
+
+
+            <Result>'
+        selected: false
+        title: LLM
+        type: llm
+        variables: []
+        vision:
+          enabled: false
+      height: 88
+      id: '17537831874480'
+      position:
+        x: 638
+        y: 1154
+      positionAbsolute:
+        x: 638
+        y: 1154
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        desc: ''
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: deepseek-v3
+          provider: langgenius/tongyi/tongyi
+        prompt_template:
+        - id: 8024484e-a1ab-4c86-91b0-6e24022b64d6
+          role: system
+          text: '<Task> 用我的语气为我回复邮件。
+
+            <Email>{{#1753780366116.Input_Text#}}
+
+
+            <Result>'
+        selected: false
+        title: LLM
+        type: llm
+        variables: []
+        vision:
+          enabled: false
+      height: 88
+      id: '17537831985080'
+      position:
+        x: 638
+        y: 1298
+      positionAbsolute:
+        x: 638
+        y: 1298
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        desc: ''
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: deepseek-v3
+          provider: langgenius/tongyi/tongyi
+        prompt_template:
+        - id: 8024484e-a1ab-4c86-91b0-6e24022b64d6
+          role: system
+          text: '<Task> 将我的想法写为电子邮件。
+
+            <Email>{{#1753780366116.Input_Text#}}
+
+
+            <Result>'
+        selected: false
+        title: LLM
+        type: llm
+        variables: []
+        vision:
+          enabled: false
+      height: 88
+      id: '17537832005710'
+      position:
+        x: 638
+        y: 1442
+      positionAbsolute:
+        x: 638
+        y: 1442
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        desc: ''
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: deepseek-v3
+          provider: langgenius/tongyi/tongyi
+        prompt_template:
+        - id: 8024484e-a1ab-4c86-91b0-6e24022b64d6
+          role: system
+          text: '<Task> 请帮我检查我邮件中的语法错误，并重写成没有语法错误的样子。
+
+            <Email>{{#1753780366116.Input_Text#}}
+
+
+            <Result>'
+        selected: false
+        title: LLM
+        type: llm
+        variables: []
+        vision:
+          enabled: false
+      height: 88
+      id: '17537832024440'
+      position:
+        x: 638
+        y: 1586
+      positionAbsolute:
+        x: 638
+        y: 1586
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        desc: ''
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: deepseek-v3
+          provider: langgenius/tongyi/tongyi
+        prompt_template:
+        - id: 8024484e-a1ab-4c86-91b0-6e24022b64d6
+          role: system
+          text: '<Task> 请帮我翻译我的邮件，如果是中文就翻译成英文，如果是英文就翻译成中文。
+
+            <Email>{{#1753780366116.Input_Text#}}
+
+
+            <Result>'
+        selected: false
+        title: LLM
+        type: llm
+        variables: []
+        vision:
+          enabled: false
+      height: 88
+      id: '17537832051480'
+      position:
+        x: 638
+        y: 1730
+      positionAbsolute:
+        x: 638
+        y: 1730
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        desc: ''
+        selected: false
+        template: '{{ arg1 }}'
+        title: 模板转换
+        type: template-transform
+        variables:
+        - value_selector:
+          - '17537830169990'
+          - text
+          value_type: string
+          variable: arg1
+      height: 52
+      id: '17537833878050'
+      position:
+        x: 1246
+        y: 505.5
+      positionAbsolute:
+        x: 1246
+        y: 505.5
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        desc: ''
+        selected: false
+        template: '{{ arg1 }}'
+        title: 模板转换
+        type: template-transform
+        variables:
+        - value_selector:
+          - '17537830209440'
+          - text
+          value_type: string
+          variable: arg1
+      height: 52
+      id: '17537833918710'
+      position:
+        x: 1246
+        y: 649.5
+      positionAbsolute:
+        x: 1246
+        y: 649.5
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        desc: ''
+        selected: false
+        template: '{{ arg1 }}'
+        title: 模板转换
+        type: template-transform
+        variables:
+        - value_selector:
+          - '17537830241880'
+          - text
+          value_type: string
+          variable: arg1
+      height: 52
+      id: '17537833944120'
+      position:
+        x: 1246
+        y: 793.5
+      positionAbsolute:
+        x: 1246
+        y: 793.5
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        desc: ''
+        selected: false
+        template: '{{ arg1 }}'
+        title: 模板转换
+        type: template-transform
+        variables:
+        - value_selector:
+          - '17537830274320'
+          - text
+          value_type: string
+          variable: arg1
+      height: 52
+      id: '17537833961710'
+      position:
+        x: 1246
+        y: 937.5
+      positionAbsolute:
+        x: 1246
+        y: 937.5
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        desc: ''
+        selected: false
+        template: '{{ arg1 }}'
+        title: 模板转换
+        type: template-transform
+        variables:
+        - value_selector:
+          - '17537831874480'
+          - text
+          value_type: string
+          variable: arg1
+      height: 52
+      id: '17537834042700'
+      position:
+        x: 942
+        y: 1074
+      positionAbsolute:
+        x: 942
+        y: 1074
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        desc: ''
+        selected: false
+        template: '{{ arg1 }}'
+        title: 模板转换
+        type: template-transform
+        variables:
+        - value_selector:
+          - '17537831985080'
+          - text
+          value_type: string
+          variable: arg1
+      height: 52
+      id: '17537834061510'
+      position:
+        x: 942
+        y: 1218
+      positionAbsolute:
+        x: 942
+        y: 1218
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        desc: ''
+        selected: false
+        template: '{{ arg1 }}'
+        title: 模板转换
+        type: template-transform
+        variables:
+        - value_selector:
+          - '17537832005710'
+          - text
+          value_type: string
+          variable: arg1
+      height: 52
+      id: '17537834080880'
+      position:
+        x: 942
+        y: 1362
+      positionAbsolute:
+        x: 942
+        y: 1362
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        desc: ''
+        selected: false
+        template: '{{ arg1 }}'
+        title: 模板转换
+        type: template-transform
+        variables:
+        - value_selector:
+          - '17537832024440'
+          - text
+          value_type: string
+          variable: arg1
+      height: 52
+      id: '17537834095460'
+      position:
+        x: 942
+        y: 1506
+      positionAbsolute:
+        x: 942
+        y: 1506
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        desc: ''
+        selected: false
+        template: '{{ arg1 }}'
+        title: 模板转换
+        type: template-transform
+        variables:
+        - value_selector:
+          - '17537832051480'
+          - text
+          value_type: string
+          variable: arg1
+      height: 52
+      id: '17537834112790'
+      position:
+        x: 942
+        y: 1650
+      positionAbsolute:
+        x: 942
+        y: 1650
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        answer: '{{#17537830169990.text#}}'
+        desc: ''
+        selected: false
+        title: 直接回复
+        type: answer
+        variables: []
+      height: 103
+      id: '17537834513210'
+      position:
+        x: 1550
+        y: 505.5
+      positionAbsolute:
+        x: 1550
+        y: 505.5
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        answer: '{{#17537830209440.text#}}'
+        desc: ''
+        selected: false
+        title: 直接回复
+        type: answer
+        variables: []
+      height: 103
+      id: '17537834531660'
+      position:
+        x: 1550
+        y: 649.5
+      positionAbsolute:
+        x: 1550
+        y: 649.5
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        answer: '{{#17537830241880.text#}}'
+        desc: ''
+        selected: false
+        title: 直接回复
+        type: answer
+        variables: []
+      height: 103
+      id: '17537834565230'
+      position:
+        x: 1550
+        y: 793.5
+      positionAbsolute:
+        x: 1550
+        y: 793.5
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        answer: '{{#17537830274320.text#}}'
+        desc: ''
+        selected: false
+        title: 直接回复
+        type: answer
+        variables: []
+      height: 103
+      id: '17537834585350'
+      position:
+        x: 1550
+        y: 937.5
+      positionAbsolute:
+        x: 1550
+        y: 937.5
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        answer: '{{#17537831874480.text#}}'
+        desc: ''
+        selected: false
+        title: 直接回复
+        type: answer
+        variables: []
+      height: 103
+      id: '17537834631320'
+      position:
+        x: 1246
+        y: 1030.5
+      positionAbsolute:
+        x: 1246
+        y: 1030.5
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        answer: '{{#17537831985080.text#}}'
+        desc: ''
+        selected: false
+        title: 直接回复
+        type: answer
+        variables: []
+      height: 103
+      id: '17537834650050'
+      position:
+        x: 1246
+        y: 1174.5
+      positionAbsolute:
+        x: 1246
+        y: 1174.5
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        answer: '{{#17537832005710.text#}}'
+        desc: ''
+        selected: false
+        title: 直接回复
+        type: answer
+        variables: []
+      height: 103
+      id: '17537834667230'
+      position:
+        x: 1246
+        y: 1318.5
+      positionAbsolute:
+        x: 1246
+        y: 1318.5
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        answer: '{{#17537832024440.text#}}'
+        desc: ''
+        selected: false
+        title: 直接回复
+        type: answer
+        variables: []
+      height: 103
+      id: '17537834689360'
+      position:
+        x: 1246
+        y: 1462.5
+      positionAbsolute:
+        x: 1246
+        y: 1462.5
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        answer: '{{#17537832051480.text#}}'
+        desc: ''
+        selected: false
+        title: 直接回复
+        type: answer
+        variables: []
+      height: 103
+      id: '17537834718030'
+      position:
+        x: 1246
+        y: 1606.5
+      positionAbsolute:
+        x: 1246
+        y: 1606.5
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    viewport:
+      x: 730.4351781447806
+      y: 20.114738823335983
+      zoom: 0.5275672183454335
+  rag_pipeline_variables: []

@@ -478,6 +478,9 @@
 - id: tool-web
   disabled: true
 
+- id: tool-dify
+  disabled: true
+
 # The preset roster. The shipped presets are bundled inside
 # `dsh-agent-presets` itself and prepended as a read-only `system` root
 # (`includeShippedRoot`); `$DSH_HOME/.agent-presets` is where a person — or an
