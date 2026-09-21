@@ -227,9 +227,11 @@ function prepareMermaidCode(code: string, isDark: boolean): string {
   const primaryTextColor = isDark ? '#f8fafc' : '#0f172a'
   const primaryBorderColor = isDark ? '#475569' : '#cbd5e1'
   const lineColor = isDark ? '#94a3b8' : '#64748b'
-  const edgeLabelBackground = isDark ? '#0f172a' : '#f8fafc'
+  const edgeLabelBackground = isDark ? '#1e293b' : '#f1f5f9'
+  const textColor = isDark ? '#f8fafc' : '#0f172a'
+  const titleColor = isDark ? '#f8fafc' : '#0f172a'
 
-  const directive = `%%{init: {'theme': '${theme}', 'themeVariables': {'primaryColor': '${primaryColor}', 'primaryTextColor': '${primaryTextColor}', 'primaryBorderColor': '${primaryBorderColor}', 'lineColor': '${lineColor}', 'edgeLabelBackground': '${edgeLabelBackground}'}, 'flowchart': {'curve': 'basis', 'padding': 16, 'nodeSpacing': 45, 'rankSpacing': 45}}}%%\n`
+  const directive = `%%{init: {'theme': '${theme}', 'themeVariables': {'primaryColor': '${primaryColor}', 'primaryTextColor': '${primaryTextColor}', 'primaryBorderColor': '${primaryBorderColor}', 'lineColor': '${lineColor}', 'edgeLabelBackground': '${edgeLabelBackground}', 'textColor': '${textColor}', 'titleColor': '${titleColor}'}, 'flowchart': {'curve': 'basis', 'padding': 16, 'nodeSpacing': 45, 'rankSpacing': 45}}}%%\n`
   return `${directive}${trimmed}`
 }
 
