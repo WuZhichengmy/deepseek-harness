@@ -27,12 +27,13 @@
 
 .banner {
   background: var(--dsl-code-block-banner-background-color);
-  padding: 6px 14px;
+  padding: 7px 14px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   gap: 12px;
   font: var(--dsl-code-block-banner-font);
+  border-bottom: 1px solid var(--dsw-alias-border-subtle, rgba(0, 0, 0, 0.06));
 }
 
 .leftControls {
@@ -42,32 +43,47 @@
 }
 
 .infostring {
-  color: var(--dsw-alias-label-primary, #111827);
+  color: #4f46e5;
+  background: rgba(99, 102, 241, 0.08);
   font-family: var(--ds-font-family-code, monospace);
   font-size: 11px;
   font-weight: 600;
-  line-height: 18px;
+  line-height: 16px;
   text-transform: lowercase;
+  padding: 1px 6px;
+  border-radius: 4px;
+}
+
+:global([data-theme="dark"]) .infostring,
+:global(.dark) .infostring {
+  color: #a5b4fc;
+  background: rgba(129, 140, 248, 0.16);
 }
 
 .toggleTabs {
   display: inline-flex;
-  background: rgba(128, 128, 128, 0.15);
+  background: rgba(0, 0, 0, 0.05);
   border-radius: 6px;
   padding: 2px;
   gap: 2px;
+}
+
+:global([data-theme="dark"]) .toggleTabs,
+:global(.dark) .toggleTabs {
+  background: rgba(255, 255, 255, 0.08);
 }
 
 .tabButton {
   border: none;
   background: transparent;
   border-radius: 4px;
-  padding: 2px 8px;
+  padding: 2px 9px;
   font-size: 11px;
   line-height: 16px;
   cursor: pointer;
   color: var(--dsw-alias-label-secondary, #6b7280);
   font-family: inherit;
+  font-weight: 500;
   transition: all 0.15s ease;
 }
 
@@ -82,9 +98,16 @@
 
 .activeTab {
   background: var(--dsw-alias-bg-base, #ffffff);
-  color: var(--dsw-alias-label-primary, #111827);
-  font-weight: 500;
+  color: var(--dsw-alias-label-primary, #0f172a);
+  font-weight: 600;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
+}
+
+:global([data-theme="dark"]) .activeTab,
+:global(.dark) .activeTab {
+  background: #27272a;
+  color: #f4f4f5;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
 }
 
 .action {
@@ -96,26 +119,43 @@
 .copyButton {
   background-color: transparent;
   border: none;
-  padding: 0;
+  padding: 2px 6px;
   margin: 0;
   color: var(--dsw-alias-label-secondary, #6b7280);
   cursor: pointer;
   font: inherit;
   font-size: 11px;
+  border-radius: 4px;
+  transition: all 0.15s ease;
 }
 
 .copyButton:hover {
   color: var(--dsw-alias-label-primary, #111827);
+  background: rgba(0, 0, 0, 0.04);
+}
+
+:global([data-theme="dark"]) .copyButton:hover,
+:global(.dark) .copyButton:hover {
+  background: rgba(255, 255, 255, 0.06);
 }
 
 .diagramBody {
-  padding: 20px;
+  padding: 28px 20px;
   display: flex;
   justify-content: center;
   align-items: center;
   overflow-x: auto;
-  min-height: 80px;
-  background: var(--dsw-alias-bg-base, #ffffff);
+  min-height: 90px;
+  background-color: var(--dsw-alias-bg-base, #ffffff);
+  background-image: radial-gradient(var(--dsw-alias-border-subtle, rgba(0, 0, 0, 0.08)) 1.25px, transparent 1.25px);
+  background-size: 18px 18px;
+  transition: background-color 0.2s ease;
+}
+
+:global([data-theme="dark"]) .diagramBody,
+:global(.dark) .diagramBody {
+  background-color: #121214;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.07) 1.25px, transparent 1.25px);
 }
 
 .diagramSvg {
@@ -129,6 +169,15 @@
   max-width: 100%;
   height: auto;
   display: block;
+  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.04));
+}
+
+.diagramSvg :global(.node) {
+  transition: transform 0.15s ease, filter 0.15s ease;
+}
+
+.diagramSvg :global(.node:hover) {
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.08));
 }
 
 .loading {
@@ -144,7 +193,7 @@
   width: 14px;
   height: 14px;
   border: 2px solid rgba(128, 128, 128, 0.2);
-  border-top-color: var(--dsw-alias-label-primary, #111827);
+  border-top-color: #4f46e5;
   border-radius: 50%;
   animation: spin 0.8s linear infinite;
 }
@@ -181,4 +230,9 @@
   border-top-left-radius: 0;
   border-top-right-radius: 0;
   margin: 0 !important;
+}
+
+.codeBody :global(.md-code-block) {
+  margin: 0 !important;
+  border-radius: 0 0 var(--dsl-code-block-border-radius) var(--dsl-code-block-border-radius);
 }

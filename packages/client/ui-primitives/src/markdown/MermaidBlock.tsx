@@ -16,7 +16,194 @@ export interface MermaidBlockProps {
   className?: string
 }
 
-let mermaidInitialized = false
+let activeTheme: 'dark' | 'light' | null = null
+
+const LIGHT_THEME_VARIABLES: Record<string, string | number> = {
+  fontFamily: 'var(--dsw-font-family, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif)',
+  fontSize: '13px',
+  // Node card style
+  primaryColor: '#ffffff',
+  primaryTextColor: '#0f172a',
+  primaryBorderColor: '#cbd5e1',
+  lineColor: '#64748b',
+  arrowheadColor: '#64748b',
+  // Edge label styling
+  edgeLabelBackground: '#f8fafc',
+  // Secondary / Tertiary
+  secondaryColor: '#f8fafc',
+  secondaryTextColor: '#334155',
+  secondaryBorderColor: '#e2e8f0',
+  tertiaryColor: '#f1f5f9',
+  tertiaryTextColor: '#475569',
+  tertiaryBorderColor: '#e2e8f0',
+  // Clusters / Subgraphs
+  clusterBkg: '#f8fafc',
+  clusterBorder: '#cbd5e1',
+  // Overall text & backgrounds
+  textColor: '#0f172a',
+  mainBkg: '#ffffff',
+  nodeBorder: '#cbd5e1',
+  nodeTextColor: '#0f172a',
+  titleColor: '#0f172a',
+  altBackground: '#f8fafc',
+  // Actors for sequence diagram
+  actorBkg: '#ffffff',
+  actorBorder: '#cbd5e1',
+  actorTextColor: '#0f172a',
+  actorLineColor: '#94a3b8',
+  signalColor: '#64748b',
+  signalTextColor: '#0f172a',
+  labelBoxBkgColor: '#ffffff',
+  labelBoxBorderColor: '#cbd5e1',
+  labelTextColor: '#0f172a',
+  // Flowchart specific
+  radius: 10,
+}
+
+const DARK_THEME_VARIABLES: Record<string, string | number> = {
+  fontFamily: 'var(--dsw-font-family, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif)',
+  fontSize: '13px',
+  // Node card style
+  primaryColor: '#1e293b',
+  primaryTextColor: '#f8fafc',
+  primaryBorderColor: '#475569',
+  lineColor: '#94a3b8',
+  arrowheadColor: '#94a3b8',
+  // Edge label styling
+  edgeLabelBackground: '#1e293b',
+  // Secondary / Tertiary
+  secondaryColor: '#0f172a',
+  secondaryTextColor: '#cbd5e1',
+  secondaryBorderColor: '#334155',
+  tertiaryColor: '#1e293b',
+  tertiaryTextColor: '#94a3b8',
+  tertiaryBorderColor: '#334155',
+  // Clusters / Subgraphs
+  clusterBkg: '#0f172a',
+  clusterBorder: '#475569',
+  // Overall text & backgrounds
+  textColor: '#f8fafc',
+  mainBkg: '#1e293b',
+  nodeBorder: '#475569',
+  nodeTextColor: '#f8fafc',
+  titleColor: '#f8fafc',
+  altBackground: '#0f172a',
+  // Actors for sequence diagram
+  actorBkg: '#1e293b',
+  actorBorder: '#475569',
+  actorTextColor: '#f8fafc',
+  actorLineColor: '#64748b',
+  signalColor: '#94a3b8',
+  signalTextColor: '#f8fafc',
+  labelBoxBkgColor: '#1e293b',
+  labelBoxBorderColor: '#475569',
+  labelTextColor: '#f8fafc',
+  // Flowchart specific
+  radius: 10,
+}
+
+const LIGHT_THEME_CSS = `
+  .node rect, .node circle, .node ellipse, .node polygon, .node path {
+    stroke-width: 1.25px !important;
+    rx: 8px !important;
+    ry: 8px !important;
+  }
+  .node .label {
+    font-weight: 500 !important;
+    line-height: 1.45 !important;
+  }
+  .node .label code {
+    font-family: var(--ds-font-family-code, ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace) !important;
+    font-size: 11px !important;
+    padding: 1px 5px !important;
+    border-radius: 4px !important;
+    background: rgba(99, 102, 241, 0.08) !important;
+    color: #4f46e5 !important;
+    font-weight: 600 !important;
+  }
+  .flowchart-link {
+    stroke-width: 1.5px !important;
+  }
+  .marker {
+    fill: #64748b !important;
+    stroke: #64748b !important;
+  }
+  .edgeLabel {
+    background-color: transparent !important;
+  }
+  .edgeLabel rect {
+    opacity: 0.95 !important;
+    rx: 5px !important;
+    ry: 5px !important;
+    stroke: #cbd5e1 !important;
+    stroke-width: 1px !important;
+  }
+  .edgeLabel span, .edgeLabel p {
+    font-family: var(--ds-font-family-code, ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace) !important;
+    font-size: 11px !important;
+    font-weight: 500 !important;
+    color: #475569 !important;
+    padding: 2px 6px !important;
+  }
+  .cluster rect {
+    rx: 10px !important;
+    ry: 10px !important;
+    stroke-width: 1.25px !important;
+    stroke-dasharray: 4 4 !important;
+  }
+`
+
+const DARK_THEME_CSS = `
+  .node rect, .node circle, .node ellipse, .node polygon, .node path {
+    stroke-width: 1.25px !important;
+    rx: 8px !important;
+    ry: 8px !important;
+  }
+  .node .label {
+    font-weight: 500 !important;
+    line-height: 1.45 !important;
+  }
+  .node .label code {
+    font-family: var(--ds-font-family-code, ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace) !important;
+    font-size: 11px !important;
+    padding: 1px 5px !important;
+    border-radius: 4px !important;
+    background: rgba(129, 140, 248, 0.18) !important;
+    color: #a5b4fc !important;
+    font-weight: 600 !important;
+  }
+  .flowchart-link {
+    stroke-width: 1.5px !important;
+  }
+  .marker {
+    fill: #94a3b8 !important;
+    stroke: #94a3b8 !important;
+  }
+  .edgeLabel {
+    background-color: transparent !important;
+  }
+  .edgeLabel rect {
+    opacity: 0.95 !important;
+    rx: 5px !important;
+    ry: 5px !important;
+    stroke: #475569 !important;
+    stroke-width: 1px !important;
+    fill: #1e293b !important;
+  }
+  .edgeLabel span, .edgeLabel p {
+    font-family: var(--ds-font-family-code, ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace) !important;
+    font-size: 11px !important;
+    font-weight: 500 !important;
+    color: #cbd5e1 !important;
+    padding: 2px 6px !important;
+  }
+  .cluster rect {
+    rx: 10px !important;
+    ry: 10px !important;
+    stroke-width: 1.25px !important;
+    stroke-dasharray: 4 4 !important;
+  }
+`
 
 /**
  * Render mermaid diagram source into an SVG string.
@@ -26,18 +213,31 @@ let mermaidInitialized = false
  */
 async function renderMermaidSvg(id: string, code: string): Promise<string> {
   const { default: mermaid } = await import('mermaid')
-  if (!mermaidInitialized) {
-    const isDark = typeof document !== 'undefined'
-      && (document.documentElement.getAttribute('data-theme') === 'dark'
-        || document.documentElement.classList.contains('dark'))
+  const isDark = typeof document !== 'undefined'
+    && (document.documentElement.getAttribute('data-theme') === 'dark'
+      || document.documentElement.classList.contains('dark')
+      || (typeof window.matchMedia === 'function' && window.matchMedia('(prefers-color-scheme: dark)').matches))
+  const targetTheme = isDark ? 'dark' : 'light'
+
+  if (activeTheme !== targetTheme) {
     mermaid.initialize({
       startOnLoad: false,
       securityLevel: 'strict',
-      theme: isDark ? 'dark' : 'default',
+      theme: 'base',
+      themeVariables: isDark ? DARK_THEME_VARIABLES : LIGHT_THEME_VARIABLES,
+      themeCSS: isDark ? DARK_THEME_CSS : LIGHT_THEME_CSS,
       fontFamily: 'inherit',
+      htmlLabels: true,
+      flowchart: {
+        curve: 'basis',
+        padding: 16,
+        nodeSpacing: 45,
+        rankSpacing: 45,
+      },
     })
-    mermaidInitialized = true
+    activeTheme = targetTheme
   }
+
   const cleanId = id.replace(/[^a-zA-Z0-9_-]/g, '_')
   const { svg } = await mermaid.render(cleanId, code.trim())
   return svg

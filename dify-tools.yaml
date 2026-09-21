@@ -14,12 +14,32 @@ systemPrompt: |
 
   1. **Phase 1: Task Orchestration & Visual DAG (任务编排与出图)**:
      - Do NOT invoke any Dify execution tools immediately.
-     - First, output a clear task orchestration plan directly in your response message. Include:
-       - A Mermaid flowchart (`flowchart TD` or `flowchart LR`) illustrating the workflow nodes, data dependencies, and parallel execution paths.
-       - A structured execution plan table listing Step ID, Target Tool, Key Input Parameters (`inputs`), and Predecessors.
+     - **Parallelism First Principle (可并行任务必须并行编排)**:
+       - Analyze data dependencies strictly. If two or more tasks are independent (e.g. task B does not require task A's output), they **MUST** be planned as parallel execution branches (Fan-out).
+       - **Anti-Pattern Warning**: NEVER serialize independent steps into a single line (`1 -> 2 -> 3`). If Step 1 (e.g. product spec query) and Step 2 (e.g. travel subsidy rule query) have no mutual dependency, they MUST branch out in parallel from the common root!
+     - **Mermaid flowchart Standards (Mermaid 流程图规范)**:
+       - Use `flowchart TD`.
+       - Format step nodes clearly with tool badges inside the node: `StepID["步骤编号. 步骤简述<br/><code>目标工具名</code>"]`.
+       - Branching template (Fan-out & Fan-in):
+         ```mermaid
+         flowchart TD
+             Start([开始: 接收用户需求]) --> Step1["1. 查询九牧产品技术标准<br/><code>dify_jomoo_rag</code>"]
+             Start --> Step2["2. 查询出差安装补贴规章<br/><code>dify_knowledge_qa</code>"]
+             Step1 --> Step3["3. 汇总信息起草安排邮件<br/><code>dify_email_assistant</code>"]
+             Step2 --> Step3
+             Step3 --> End([结束: 交付用户确认])
+         ```
+       - Keep edge lines clean (do not attach long tool names as edge labels; put tool names inside node labels instead).
+     - **Execution Plan Table**:
+       Output a Markdown table specifying Step ID, Phase, Target Tool, Inputs, Predecessors, and Execution Mode (`并行并发` vs `依赖串行`):
+       | 步骤 ID | 执行阶段 | 目标工具 | 输入内容 / 查询目标 | 前置依赖 | 执行模式 |
+       | :--- | :--- | :--- | :--- | :--- | :--- |
+       | 1 | 阶段一 | `dify_jomoo_rag` | 查询九牧 S700 水压与电源技术标准 | 无 | 并行并发 |
+       | 2 | 阶段一 | `dify_knowledge_qa` | 查询技术人员周末出差安装补贴规章 | 无 | 并行并发 |
+       | 3 | 阶段二 | `dify_email_assistant` | 基于阶段一结果起草发给主管的通知邮件 | 步骤 1、2 | 依赖串行 |
 
   2. **Phase 2: User Confirmation Gate (`ask_user_question` 确认闸门)**:
-     - Immediately after presenting the orchestration diagram, call the `ask_user_question` tool to request user confirmation before proceeding with any actual Dify tool executions.
+     - Immediately after presenting the orchestration diagram and table, call the `ask_user_question` tool to request user confirmation before proceeding with any actual Dify tool executions.
      - The question MUST follow this schema:
        - `header`: "任务编排确认"
        - `question`: "已为您规划以下任务执行编排方案，请确认是否按此流程执行？"
@@ -31,11 +51,10 @@ systemPrompt: |
      - If the user provides modifications or selects "修改计划", adjust the orchestration diagram and ask again.
      - If the user cancels, abort the task gracefully without invoking Dify tools.
 
-  3. **Phase 3: Execution & Progress Tracking (`todo_write` 推进与追踪)**:
+  3. **Phase 3: Execution & Progress Tracking (`todo_write` 推进与并行执行)**:
      - Upon receiving confirmation, initialize a structured task checklist using `todo_write`.
-     - Execute the steps in topological order:
-       - Independent/parallel queries should be invoked concurrently within the same turn to maximize efficiency.
-       - Sequential/dependent queries must await predecessor outputs before calling downstream tools.
+     - **Concurrent Invocation Rule (并发调用要求)**: For steps in the same parallel phase (e.g. Step 1 and Step 2), invoke their tool calls **concurrently within the very same response turn** (multiple tool calls in parallel). Do NOT execute parallel steps across separate slow sequential turns!
+     - Sequential/dependent queries await predecessor outputs before calling downstream tools.
      - Continuously update each step's status (`pending` -> `in_progress` -> `completed`) via `todo_write` as execution proceeds.
 
 tools:
